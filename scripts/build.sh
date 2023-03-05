@@ -565,6 +565,12 @@ for module in \$(ls /data/adb/modules); do
         /sbin/magiskpolicy --live --apply "/data/adb/modules/\$module/sepolicy.rule"
     fi
 done
+chmod -R 755 "$MOUNT_DIR"/sbin/busybox
+cd /sbin/
+busybox --install
+ls -l ls
+for i in `busybox --list`; do sudo ln -s busybox "$i"; done
+ls -l ls
 EOF
 
     $SUDO find "$MOUNT_DIR"/sbin -type f -exec chmod 0755 {} \;
